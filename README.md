@@ -2,6 +2,8 @@
 
 Convert PDF documents into spoken Portuguese audiobooks (`.wav`) using open-source Hugging Face Text-to-Speech (TTS) models running directly on your GPU (NVIDIA CUDA) or CPU.
 
+> 🤖 **Note:** This project was completely generated with **Gemini 3.8 Flash**, guided by [@OldemarJesus](https://github.com/OldemarJesus).
+
 ---
 
 ## 🎯 Goal & Features
@@ -24,6 +26,7 @@ pdf2audiobook-converter-python/
 ├── requirements.txt              # Project package dependencies
 ├── .gitignore                    # Prevents committing venv, audio outputs, and PDFs
 ├── LICENSE                       # MIT License
+├── AGENTS.md                     # AI agent architecture and context guide
 └── README.md                     # Project documentation
 ```
 
@@ -122,6 +125,12 @@ python pdf2audiobook.py
 ```
 - **Model:** `facebook/mms-tts-por`
 - **Output:** `portuguese_audiobook.wav`
+
+---
+
+## 🤖 Acknowledgments
+
+This project was completely generated with **Gemini 3.8 Flash**, guided and engineered by [@OldemarJesus](https://github.com/OldemarJesus).
 
 ---
 
