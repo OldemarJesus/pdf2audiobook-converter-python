@@ -1,0 +1,29 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Generated Audio Outputs
+*.wav
+*.mp3
+
+# Hugging Face / Downloaded models (if saved locally)
+*.onnx
+*.onnx.json
+
+# Local Input PDF (keep private documents out of git)
+document.pdf
+
+# IDE & Editor Configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~

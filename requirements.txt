@@ -1,0 +1,19 @@
+# Core Deep Learning & NLP
+torch
+transformers
+accelerate
+
+# PDF Text Extraction & Decryption
+pypdf2
+pycryptodome
+
+# Audio Processing (for MMS model)
+scipy
+numpy
+
+# European Portuguese (pt-PT) Fast TTS & Hugging Face Hub
+piper-tts
+huggingface-hub
+
+# GPU acceleration for Piper TTS ONNX models (NVIDIA CUDA)
+onnxruntime-gpu
