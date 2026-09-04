@@ -2,7 +2,7 @@
 
 Convert PDF documents into spoken Portuguese audiobooks (`.wav`) using open-source Hugging Face Text-to-Speech (TTS) models running directly on your GPU (NVIDIA CUDA) or CPU.
 
-> 🤖 **Note:** This project was completely generated with **Gemini 3.8 Flash**, guided by [@OldemarJesus](https://github.com/OldemarJesus).
+> 🤖 **AI Disclosure & Transparency:** This project was scaffolded using AI-assisted code generation (**Gemini 3.8 Flash**) and thoroughly reviewed, tested, and refined by humans ([@OldemarJesus](https://github.com/OldemarJesus)).
 
 ---
 
@@ -26,6 +26,7 @@ pdf2audiobook-converter-python/
 ├── requirements.txt              # Project package dependencies
 ├── .gitignore                    # Prevents committing venv, audio outputs, and PDFs
 ├── LICENSE                       # MIT License
+├── CHANGELOG.md                  # Project history and release notes
 ├── AGENTS.md                     # AI agent architecture and context guide
 └── README.md                     # Project documentation
 ```
@@ -128,9 +129,28 @@ python pdf2audiobook.py
 
 ---
 
-## 🤖 Acknowledgments
+## 🔬 Model Provenance & Training Data
 
-This project was completely generated with **Gemini 3.8 Flash**, guided and engineered by [@OldemarJesus](https://github.com/OldemarJesus).
+This project relies exclusively on open-source, permissively licensed speech synthesis models hosted on Hugging Face:
+
+| Voice / Language | Engine | Model ID / Repository | License |
+| :--- | :--- | :--- | :--- |
+| **European Portuguese (pt-PT)** | [Piper TTS](https://github.com/rhasspy/piper) | [`rhasspy/piper-voices` (pt_PT-tugão-medium)](https://huggingface.co/rhasspy/piper-voices) | MIT / Open Data |
+| **Portuguese (Multilingual/BR)** | Meta MMS | [`facebook/mms-tts-por`](https://huggingface.co/facebook/mms-tts-por) | CC-BY-NC 4.0 / Open Access |
+
+---
+
+## 🎯 Scope of Intended Use & Compliance
+
+- **Intended Purpose:** Personal, academic, and accessibility utility for local text-to-speech conversion of PDF documents.
+- **Data Privacy & Governance:** All model inference, text extraction, and audio processing run **100% locally** on your machine. No document text or generated audio is transmitted to cloud APIs or external third parties.
+- **Risk Posture:** Classified as **Minimal Risk** under EU AI Act guidelines; this utility performs local format shifting without autonomous decision-making or safety-critical implications.
+
+---
+
+## 🤖 AI Disclosure & Acknowledgments
+
+This project was scaffolded using AI-assisted code generation (**Gemini 3.8 Flash**), with iterative architecture design, debugging, human oversight, and testing guided by [@OldemarJesus](https://github.com/OldemarJesus).
 
 ---
 

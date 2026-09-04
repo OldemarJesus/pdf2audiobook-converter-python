@@ -13,15 +13,17 @@ The project contains two complementary converter scripts:
 
 1. **`pdf2audiobook_ptpt.py` (European Portuguese / pt-PT — Recommended)**
    - **TTS Engine:** [Piper TTS](https://github.com/rhasspy/piper) (`piper-tts`, `piper.voice.PiperVoice`).
-   - **Model Repository:** `rhasspy/piper-voices` on Hugging Face Hub.
-   - **Files:** `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx` and `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx.json`.
+   - **Model Repository:** [`rhasspy/piper-voices`](https://huggingface.co/rhasspy/piper-voices) on Hugging Face Hub.
+   - **Model Files:** `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx` and `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx.json`.
+   - **Phonetic Target:** Native European Portuguese (`pt-PT`) phonetics.
    - **Characteristics:** Zero text-chunking required. Uses `voice.synthesize_wav(full_text, wav)` for direct continuous streaming synthesis.
    - **Execution Provider:** ONNX Runtime via CUDA (`onnxruntime-gpu`) when available, falling back to CPU.
    - **Output:** `portuguese_pt_audiobook.wav`.
 
 2. **`pdf2audiobook.py` (Brazilian/Multilingual Portuguese)**
    - **TTS Engine:** Meta's Massively Multilingual Speech (MMS) via Hugging Face Transformers (`VitsTokenizer`, `VitsModel`).
-   - **Model ID:** `facebook/mms-tts-por`.
+   - **Model Card:** [`facebook/mms-tts-por`](https://huggingface.co/facebook/mms-tts-por) on Hugging Face Hub.
+   - **Phonetic Target:** Portuguese (predominantly Brazilian phonetics).
    - **Characteristics:** Splits text into 500-character chunks to avoid token and memory limits, feeds each chunk to the model, and concatenates 1D audio waveform NumPy arrays using `np.concatenate(audio_pieces)` before writing with `scipy.io.wavfile.write`.
    - **Execution Provider:** PyTorch CUDA device (`device = "cuda" if torch.cuda.is_available() else "cpu"`).
    - **Output:** `portuguese_audiobook.wav`.
