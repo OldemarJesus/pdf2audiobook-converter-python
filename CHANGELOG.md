@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Initial project scaffolding:** Complete PDF-to-audiobook pipeline using Hugging Face Text-to-Speech models.
 - **European Portuguese support (`pdf2audiobook_ptpt.py`):**
-  - Integrated [Piper TTS](https://github.com/rhasspy/piper) engine.
+  - Integrated [Piper TTS](https://github.com/OHF-Voice/piper1-gpl) engine (formerly Rhasspy Piper, now active under Open Home Foundation / OHF-Voice).
   - Configured automated model download for `rhasspy/piper-voices` ([pt_PT-tugão-medium](https://huggingface.co/rhasspy/piper-voices)).
   - Direct continuous audio streaming using `voice.synthesize_wav()` to eliminate audio chunking.
   - CUDA GPU acceleration via `onnxruntime-gpu`.

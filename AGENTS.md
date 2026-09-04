@@ -12,7 +12,7 @@ The project was originally developed and completely generated with **Gemini 3.8 
 The project contains two complementary converter scripts:
 
 1. **`pdf2audiobook_ptpt.py` (European Portuguese / pt-PT — Recommended)**
-   - **TTS Engine:** [Piper TTS](https://github.com/rhasspy/piper) (`piper-tts`, `piper.voice.PiperVoice`).
+   - **TTS Engine:** [Piper TTS](https://github.com/OHF-Voice/piper1-gpl) (`piper-tts`, `piper.voice.PiperVoice` — formerly Rhasspy Piper).
    - **Model Repository:** [`rhasspy/piper-voices`](https://huggingface.co/rhasspy/piper-voices) on Hugging Face Hub.
    - **Model Files:** `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx` and `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx.json`.
    - **Phonetic Target:** Native European Portuguese (`pt-PT`) phonetics.

@@ -10,7 +10,7 @@ Convert PDF documents into spoken Portuguese audiobooks (`.wav`) using open-sour
 
 - **Extract & Decrypt:** Extracts text directly from any standard or AES-encrypted PDF (e.g. university regulations, Diário da República official publications).
 - **Two Language Flavors:**
-  - 🇵🇹 **European Portuguese (pt-PT):** Uses **[Piper TTS](https://github.com/rhasspy/piper)** with the native **`pt_PT-tugão-medium`** model downloaded automatically from Hugging Face (`rhasspy/piper-voices`). Extremely fast, lightweight, and natural European Portuguese pronunciation.
+  - 🇵🇹 **European Portuguese (pt-PT):** Uses **[Piper TTS](https://github.com/OHF-Voice/piper1-gpl)** (formerly Rhasspy Piper) with the native **`pt_PT-tugão-medium`** model downloaded automatically from Hugging Face (`rhasspy/piper-voices`). Extremely fast, lightweight, and natural European Portuguese pronunciation.
   - 🇧🇷 **Portuguese (Meta MMS):** Uses Meta's Massively Multilingual Speech model **`facebook/mms-tts-por`** via Hugging Face `transformers` with automated text chunking and NumPy audio concatenation.
 - **Hardware Accelerated:** Leverages NVIDIA GPUs via CUDA (`torch` with CUDA and `onnxruntime-gpu`) with fallback to CPU.
 
@@ -135,7 +135,7 @@ This project relies exclusively on open-source, permissively licensed speech syn
 
 | Voice / Language | Engine | Model ID / Repository | License |
 | :--- | :--- | :--- | :--- |
-| **European Portuguese (pt-PT)** | [Piper TTS](https://github.com/rhasspy/piper) | [`rhasspy/piper-voices` (pt_PT-tugão-medium)](https://huggingface.co/rhasspy/piper-voices) | MIT / Open Data |
+| **European Portuguese (pt-PT)** | [Piper TTS](https://github.com/OHF-Voice/piper1-gpl) | [`rhasspy/piper-voices` (pt_PT-tugão-medium)](https://huggingface.co/rhasspy/piper-voices) | MIT / Open Data |
 | **Portuguese (Multilingual/BR)** | Meta MMS | [`facebook/mms-tts-por`](https://huggingface.co/facebook/mms-tts-por) | CC-BY-NC 4.0 / Open Access |
 
 ---
