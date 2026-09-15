@@ -1,7 +1,12 @@
+# SPDX-FileCopyrightText: 2026 Oldemar
+# SPDX-License-Identifier: MIT
+
 # Core Deep Learning & NLP
 torch
 transformers
 accelerate
+sentencepiece
+sacremoses
 
 # PDF Text Extraction & Decryption
 pypdf2
@@ -17,3 +22,7 @@ huggingface-hub
 
 # GPU acceleration for Piper TTS ONNX models (NVIDIA CUDA)
 onnxruntime-gpu
+
+# License & Compliance
+reuse
+

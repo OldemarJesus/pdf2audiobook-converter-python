@@ -1,32 +1,63 @@
+<!--
+SPDX-FileCopyrightText: 2026 Oldemar
+SPDX-License-Identifier: MIT
+-->
+
 # AGENTS.md — AI Agent Guide for pdf2audiobook-converter-python
 
 ## Project Overview
-`pdf2audiobook-converter-python` is a lightweight, hardware-accelerated Python utility that extracts text from PDF files (including AES-encrypted official documents) and converts them into spoken Portuguese audiobooks saved as `.wav` files using open-source Hugging Face models.
+`pdf2audiobook-converter-python` is a lightweight, hardware-accelerated Python utility that extracts text from PDF files (including AES-encrypted official documents) and converts them into spoken audiobooks saved as `.wav` files and translated text documents using open-source Hugging Face models.
 
-The project was originally developed and completely generated with **Gemini 3.8 Flash**, guided by [@OldemarJesus](https://github.com/OldemarJesus).
+The project was originally developed and generated with **Gemini 3.8 Flash**, guided by [@OldemarJesus](https://github.com/OldemarJesus).
 
 ---
 
 ## Architecture & Codebase Map
 
-The project contains two complementary converter scripts:
+The project is architected around a single, unified entry point (`main.py`) backed by the modular package `src/pdf2audiobook`:
 
-1. **`pdf2audiobook_ptpt.py` (European Portuguese / pt-PT — Recommended)**
-   - **TTS Engine:** [Piper TTS](https://github.com/OHF-Voice/piper1-gpl) (`piper-tts`, `piper.voice.PiperVoice` — formerly Rhasspy Piper).
-   - **Model Repository:** [`rhasspy/piper-voices`](https://huggingface.co/rhasspy/piper-voices) on Hugging Face Hub.
-   - **Model Files:** `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx` and `pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx.json`.
+```text
+pdf2audiobook-converter-python/
+├── main.py                          # 🚀 Unique unified CLI entry point (argparse subcommands)
+├── src/
+│   └── pdf2audiobook/
+│       ├── __init__.py              # Package init & version
+│       ├── pdf.py                   # PDF text extraction & AES decryption
+│       ├── tts.py                   # Piper TTS & Meta MMS speech synthesis
+│       └── translator.py            # MarianMT translation with technical term preservation
+├── LICENSES/
+│   └── MIT.txt                      # REUSE 3.3 canonical MIT license
+├── .reuse/
+│   └── dep5                         # REUSE dep5 copyright & license metadata
+├── requirements.txt                 # Project dependencies
+├── CHANGELOG.md                     # Release and update history
+├── AGENTS.md                        # Architecture and guidance for AI agents
+└── README.md                        # Human-facing documentation
+```
+
+### Supported Subcommands in `main.py`:
+1. **`ptpt` (European Portuguese / pt-PT — Recommended)**
+   - **TTS Engine:** [Piper TTS](https://github.com/OHF-Voice/piper1-gpl) (`piper-tts`, `piper.voice.PiperVoice`).
+   - **Model Repository:** [`rhasspy/piper-voices`](https://huggingface.co/rhasspy/piper-voices) (`pt/pt_PT/tugão/medium/pt_PT-tugão-medium.onnx`).
    - **Phonetic Target:** Native European Portuguese (`pt-PT`) phonetics.
-   - **Characteristics:** Zero text-chunking required. Uses `voice.synthesize_wav(full_text, wav)` for direct continuous streaming synthesis.
+   - **Characteristics:** Uses `voice.synthesize_wav(full_text, wav)` for continuous streaming synthesis.
    - **Execution Provider:** ONNX Runtime via CUDA (`onnxruntime-gpu`) when available, falling back to CPU.
-   - **Output:** `portuguese_pt_audiobook.wav`.
 
-2. **`pdf2audiobook.py` (Brazilian/Multilingual Portuguese)**
-   - **TTS Engine:** Meta's Massively Multilingual Speech (MMS) via Hugging Face Transformers (`VitsTokenizer`, `VitsModel`).
-   - **Model Card:** [`facebook/mms-tts-por`](https://huggingface.co/facebook/mms-tts-por) on Hugging Face Hub.
-   - **Phonetic Target:** Portuguese (predominantly Brazilian phonetics).
-   - **Characteristics:** Splits text into 500-character chunks to avoid token and memory limits, feeds each chunk to the model, and concatenates 1D audio waveform NumPy arrays using `np.concatenate(audio_pieces)` before writing with `scipy.io.wavfile.write`.
+2. **`mms-pt` (Brazilian / Multilingual Portuguese)**
+   - **TTS Engine:** Meta MMS via Hugging Face Transformers (`VitsTokenizer`, `VitsModel`).
+   - **Model Card:** [`facebook/mms-tts-por`](https://huggingface.co/facebook/mms-tts-por).
    - **Execution Provider:** PyTorch CUDA device (`device = "cuda" if torch.cuda.is_available() else "cpu"`).
-   - **Output:** `portuguese_audiobook.wav`.
+
+3. **`mms-en` (English TTS)**
+   - **TTS Engine:** Meta MMS via Hugging Face Transformers (`Baghdad99/english_voice_tts`).
+   - **Execution Provider:** PyTorch CUDA / CPU.
+
+4. **`translate` (English to Portuguese Neural Machine Translation)**
+   - **Translation Engine:** MarianMT (`Helsinki-NLP/opus-mt-tc-big-en-pt`).
+   - **Term Preservation:** Uses `TermPreserver` placeholder masking to protect technical keywords (e.g. LLM, CUDA, API, Docker, PyTorch) from translation.
+
+5. **`pipeline` (End-to-End Translation + European Portuguese TTS)**
+   - Translates English PDF into Portuguese text and directly synthesizes European Portuguese WAV audio in a single step.
 
 ---
 
@@ -36,7 +67,7 @@ The project contains two complementary converter scripts:
 - **Piper TTS on CUDA:** When installing `piper-tts`, pip often resolves to standard CPU-only `onnxruntime`. To utilize NVIDIA GPUs, `onnxruntime` must be uninstalled and replaced with `onnxruntime-gpu`.
 - **Piper API:** Use `voice.synthesize_wav(full_text, wav)` to write directly into an open `wave.open(output_file, 'wb')` handle. Do not use `voice.synthesize()` without iterating over its audio chunk generator, otherwise an empty 44-byte WAV header is created.
 - **NumPy Concatenation for MMS:** Audio waveforms produced by `VitsModel` are 1D arrays; concatenate them using `np.concatenate(audio_pieces)` (1D), **not** with `axis=1`.
-- **Input File Convention:** By default, both scripts look for `document.pdf` located in the root workspace directory.
+- **REUSE Compliance:** All files must follow REUSE 3.3 specification with `SPDX-FileCopyrightText` and `SPDX-License-Identifier` headers, verified via `reuse lint`.
 
 ---
 
@@ -48,16 +79,12 @@ The project contains two complementary converter scripts:
   source .venv/bin/activate
   pip install -r requirements.txt
   ```
-- **Dependencies (`requirements.txt`):**
-  - `torch`, `transformers`, `accelerate`
-  - `pypdf2`, `pycryptodome`
-  - `scipy`, `numpy`
-  - `piper-tts`, `huggingface-hub`, `onnxruntime-gpu`
 
 ---
 
 ## Guidance for AI Agents Modifying This Codebase
 
-- **Input Flexibility:** If extending the scripts with CLI arguments, prefer `argparse` allowing users to specify arbitrary input PDF paths and custom output filenames while preserving `document.pdf` as the default.
-- **Chunking Logic:** If modifying `pdf2audiobook.py`, ensure sentence boundaries are preserved when splitting chunks rather than hard splitting on arbitrary character counts.
+- **CLI Conventions:** All new features or parameter adjustments must be wired through `main.py` subcommands with clear help messages and examples in `build_parser()`.
+- **Chunking Logic:** Ensure sentence boundaries are preserved when splitting chunks rather than hard splitting on arbitrary character counts.
+- **REUSE Compliance:** Always ensure `reuse lint` passes after adding or modifying files.
 - **Git Hygiene:** Never commit `.venv/`, `.wav` files, or local `document.pdf` files; respect `.gitignore`.

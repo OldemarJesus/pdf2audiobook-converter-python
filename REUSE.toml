@@ -1,0 +1,15 @@
+version = 1
+SPDX-PackageName = "pdf2audiobook-converter-python"
+SPDX-PackageDownloadLocation = "https://github.com/OldemarJesus/pdf2audiobook-converter-python"
+
+[[annotations]]
+path = "**"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Oldemar"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = [".gitignore", "requirements.txt", "translated_document_pt.txt"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Oldemar"
+SPDX-License-Identifier = "MIT"

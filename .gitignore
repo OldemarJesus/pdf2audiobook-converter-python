@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 Oldemar
+# SPDX-License-Identifier: MIT
+
 # Virtual Environment
 .venv/
 venv/
